@@ -8,12 +8,16 @@ from flask_bcrypt import Bcrypt
 import sqlalchemy
 
 app = Flask(__name__)
-db = SQLAlchemy(app)
+
+db= SQLAlchemy(app)
 bcrypt = Bcrypt(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.sqlite3'
+# app.config(['SQLALCHEMY_DATABASE_URI'] = 
+#            'postgresql://postgres:password@localhost/height_collector')
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.sqlite3'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SECRET_KEY'] = 'thisisasecretkey'
+
 
 
 login_manager = LoginManager()
@@ -108,6 +112,6 @@ def register():
 
 
 if __name__ == "__main__":
-    # db.create_all()
+    db.create_all()
     db.init_app(app)
     app.run(debug=True)
